@@ -1,8 +1,8 @@
-  filebeat.inputs:
-    - type: log
-      enabled: true
-      paths:
-        - /var/log/nginx/access.log  # Adjust to your log path
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/nginx/access.log  # Adjust to your log path
 
-  output.logstash:
-    hosts: ["logstash:5044"]
+output.logstash:
+  hosts: ["logstash:5044"]

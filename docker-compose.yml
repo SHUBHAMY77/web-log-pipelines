@@ -16,8 +16,8 @@ services:
     image: docker.elastic.co/logstash/logstash:8.10.1
     container_name: logstash
     volumes:
-      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
-      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
     ports:
       - "5044:5044"  # For Filebeat input
     depends_on:
@@ -40,6 +40,7 @@ services:
     volumes:
       - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./logs:/var/log/nginx:ro  # Mount your log directory
+    command: ["filebeat", "-e", "--strict.perms=false"]
     depends_on:
       - logstash
 
@@ -53,3 +54,4 @@ services:
 
 volumes:
   es-data:
+    driver: local
